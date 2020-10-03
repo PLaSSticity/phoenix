@@ -55,21 +55,21 @@ endif
 PATH_OUT = ./$(OSTYPE)/
 
 CFLAGS = -Wall $(ARCH) -O3
-LIBS = -lm -lpthread -lrt -lcpc
+LIBS = -lm -lpthread -lrt
 
 L_REG_OBJS = linear_regression.o
 L_REG_SEQ_OBJS = linear_regression_serial.o
 L_REG_PTHREAD_OBJS = linear_regression_pthread.o
 COM_OBJS = MapReduceScheduler.o
 
-PROGS = lreg lreg-seq lreg-pthread
+PROGS = lreg-seq lreg-pthread
 
 .PHONY: default clean
 
 all: $(PROGS)
 
-lreg: $(COM_OBJS) $(L_REG_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(L_REG_OBJS) $(LIBS)
+# lreg: $(COM_OBJS) $(L_REG_OBJS)
+# 	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(L_REG_OBJS) $(LIBS)
 
 lreg-seq: $(L_REG_SEQ_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(L_REG_SEQ_OBJS) $(LIBS)

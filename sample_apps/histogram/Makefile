@@ -55,21 +55,21 @@ endif
 PATH_OUT = ./$(OSTYPE)/
 
 CFLAGS = -Wall $(ARCH) -O3
-LIBS = -lm -lpthread -lrt -lcpc
+LIBS = -lm -lpthread -lrt
 
 HIST_OBJS = hist.o
 HIST_SEQ_OBJS = hist-seq.o
 HIST_PTHREAD_OBJS = hist-pthread.o
 COM_OBJS = MapReduceScheduler.o
 
-PROGS = hist hist-seq hist-pthread
+PROGS = hist-seq hist-pthread
 
 .PHONY: default clean
 
 all: $(PROGS)
 
-hist: $(COM_OBJS) $(HIST_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(HIST_OBJS) $(LIBS)
+# hist: $(COM_OBJS) $(HIST_OBJS)
+# 	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(HIST_OBJS) $(LIBS)
 
 hist-seq: $(HIST_SEQ_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(HIST_SEQ_OBJS) $(LIBS)

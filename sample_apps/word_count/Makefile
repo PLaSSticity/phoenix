@@ -55,14 +55,14 @@ endif
 PATH_OUT = ./$(OSTYPE)/
 
 CFLAGS = -Wall $(ARCH) -O3
-LIBS = -lm -lpthread -lrt -lcpc
+LIBS = -lm -lpthread -lrt
 
 WC_OBJS = wordcount.o mapreduce_sort.o
 WC_OBJS_PTHREADS = wordcount_pthreads.o sort_pthreads.o
 WC_OBJS_SER = wordcount_serial.o
-COM_OBJS = MapReduceScheduler.o
+# COM_OBJS = MapReduceScheduler.o
 
-PROGS = wordcount wordcount_pthreads wordcount_serial
+PROGS = wordcount_pthreads wordcount_serial
 
 .PHONY: default clean
 

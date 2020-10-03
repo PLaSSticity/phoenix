@@ -55,14 +55,14 @@ endif
 PATH_OUT = ./$(OSTYPE)/
 
 CFLAGS = -Wall $(ARCH) -O3
-LIBS = -lm -lpthread -lrt -lcpc
+LIBS = -lm -lpthread -lrt
 
 REV_SEQ_OBJS = reverseindex-seq.o
 REV_PTHREAD_OBJS = reverseindex-pthread.o
 REV_OBJS = reverseindex.o
 COM_OBJS = MapReduceScheduler.o
 
-PROGS = reverseindex reverseindex-seq reverseindex-pthread
+PROGS = reverseindex-seq reverseindex-pthread
 
 .PHONY: default clean
 
