@@ -48,6 +48,9 @@
 #define MAX_REC_LEN 1024
 #define OFFSET 5
 
+__attribute__((noinline)) void __parsec_roi_begin() { asm(""); }
+__attribute__((noinline)) void __parsec_roi_end() { asm(""); }
+
 typedef struct {
   int keys_file_len;
   int encrypted_file_len;
@@ -159,6 +162,7 @@ void string_match_splitter(void *data_in)
                                                                   * num_procs);
    map_args_t* out = (map_args_t*)malloc(sizeof(map_args_t) * num_procs);
 
+   __parsec_roi_begin();
    for(i=0; i<num_procs; i++)
    {
 	   map_data[i].encrypt_file = data->encrypt_file;
@@ -202,6 +206,7 @@ void string_match_splitter(void *data_in)
       CHECK_ERROR(pthread_join(tid[i], (void **)(void*)&ret_val) != 0);
 	  CHECK_ERROR(ret_val != 0);
    }
+   __parsec_roi_end();
    pthread_attr_destroy(&attr);
    free(tid);
    free(key1_final);

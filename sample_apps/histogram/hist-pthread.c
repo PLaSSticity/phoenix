@@ -42,6 +42,9 @@
 #define IMG_DATA_OFFSET_POS 10
 #define BITS_PER_PIXEL_POS 28
 
+__attribute__((noinline)) void __parsec_roi_begin() { asm(""); }
+__attribute__((noinline)) void __parsec_roi_end() { asm(""); }
+
 int swap;      // to indicate if we need to swap byte order of header information
 
 typedef struct {
@@ -211,9 +214,11 @@ int main(int argc, char *argv[]) {
    
    CHECK_ERROR( (pid = (pthread_t *)malloc(sizeof(pthread_t) * num_procs)) == NULL);
    CHECK_ERROR( (arg = (thread_arg_t *)calloc(sizeof(thread_arg_t), num_procs)) == NULL);
-   
+      
    /* Assign portions of the image to each thread */
    long curr_pos = (long)(*data_pos);
+  
+   __parsec_roi_begin(); 
    for (i = 0; i < num_procs; i++) {
       arg[i].data = (unsigned char *)fdata;
       arg[i].data_pos = curr_pos;
@@ -232,7 +237,8 @@ int main(int argc, char *argv[]) {
    for (i = 0; i < num_procs; i++) {
       pthread_join(pid[i] , NULL);   
    }
-   
+   __parsec_roi_end();
+
    for (i = 0; i < num_procs; i++) {
       for (j = 0; j < 256; j++) {
          red[j] += arg[i].red[j];
@@ -264,9 +270,9 @@ int main(int argc, char *argv[]) {
    
    free(pid);
    for(i = 0; i < num_procs; i++) {
-      free(arg[i].red);
-      free(arg[i].green);
-      free(arg[i].blue);
+      // free(arg[i].red);
+      // free(arg[i].green);
+      // free(arg[i].blue);
    }
    free(arg);
    pthread_attr_destroy(&attr);

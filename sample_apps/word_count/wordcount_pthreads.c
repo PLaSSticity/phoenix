@@ -44,6 +44,9 @@
 #define DEFAULT_DISP_NUM 10
 #define START_ARRAY_SIZE 2000
 
+__attribute__((noinline)) void __parsec_roi_begin() { asm(""); }
+__attribute__((noinline)) void __parsec_roi_end() { asm(""); }
+
 typedef struct {
 	char* word;
 	int count;
@@ -137,6 +140,7 @@ void wordcount_splitter(void *data_in)
 
    int req_bytes = data->flen / num_procs;
 
+   __parsec_roi_begin();
    for(i=0; i<num_procs; i++)
    {
       words[i] = (wc_count_t*)malloc(START_ARRAY_SIZE*sizeof(wc_count_t));
@@ -174,6 +178,7 @@ void wordcount_splitter(void *data_in)
 	  CHECK_ERROR(ret_val != 0);
    }
 
+   __parsec_roi_end();
 
    // Join the arrays
    int num_threads = num_procs / 2;

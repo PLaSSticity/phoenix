@@ -40,6 +40,9 @@
 
 #include "stddefines.h"
 
+__attribute__((noinline)) void __parsec_roi_begin() { asm(""); }
+__attribute__((noinline)) void __parsec_roi_end() { asm(""); }
+
 typedef struct {
    char x;
    char y;
@@ -132,6 +135,8 @@ int main(int argc, char *argv[])
    req_units = n / num_threads;
    tid_args = (lreg_args *)CALLOC(sizeof(lreg_args), num_procs); 
 
+   
+   __parsec_roi_begin();
 	 // Assign a portion of the points for each thread
    for(i = 0; i < num_threads; i++)
    {
@@ -158,6 +163,7 @@ int main(int argc, char *argv[])
       SYY_ll += tid_args[i].SYY; 
       SXY_ll += tid_args[i].SXY;
    }
+   __parsec_roi_end();
 
    free(tid_args);
 
