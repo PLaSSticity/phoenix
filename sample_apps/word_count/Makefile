@@ -54,7 +54,7 @@ endif
 
 PATH_OUT = ./$(OSTYPE)/
 
-CFLAGS = -Wall $(ARCH) -O3
+CFLAGS = -Wall $(ARCH) -O0
 LIBS = -lm -lpthread -lrt
 
 WC_OBJS = wordcount.o mapreduce_sort.o

@@ -54,7 +54,7 @@ endif
 
 PATH_OUT = ./$(OSTYPE)/
 
-CFLAGS = -Wall $(ARCH) -O3
+CFLAGS = -Wall $(ARCH) -O0
 LIBS = -lm -lpthread -lrt
 
 STR_MATCH_SER_OBJS = string_match_serial.o
