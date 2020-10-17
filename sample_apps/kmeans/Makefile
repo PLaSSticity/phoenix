@@ -54,15 +54,15 @@ endif
 
 PATH_OUT = ./$(OSTYPE)/
 
-CFLAGS = -Wall $(ARCH) -O3
-LIBS = -lm -lpthread -lrt -lcpc
+CFLAGS = -Wall $(ARCH) -O1
+LIBS = -lm -lpthread -lrt
 
 KMEANS_SEQ_OBJS = kmeans-seq.o
 KMEANS_PTHREAD_OBJS = kmeans-pthread.o
 KMEANS_OBJS = kmeans.o
 COM_OBJS = MapReduceScheduler.o
 
-PROGS = kmeans kmeans-seq kmeans-pthread
+PROGS = kmeans-seq kmeans-pthread
 
 .PHONY: default clean
 
